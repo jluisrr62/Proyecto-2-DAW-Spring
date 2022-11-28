@@ -28,6 +28,10 @@ public class Asignatura {
 	@OneToMany(mappedBy="asignatura")
 	private Set<Libro> libros;
 	
+	public Asignatura() {
+		
+	}
+	
 	public Asignatura(String nombre,String curso) {
 		this.nombre = nombre;
 		this.curso = curso;

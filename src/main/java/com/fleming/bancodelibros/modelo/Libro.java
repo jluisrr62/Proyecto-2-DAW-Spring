@@ -45,6 +45,10 @@ public class Libro {
 	@JoinColumn(name="asignatura_id")
 	Asignatura asignatura;
 	
+	public Libro() {
+		
+	}
+	
 	public Libro(String ISBN, String nombre){
 		this.ISBN = ISBN;
 		this.nombre = nombre;

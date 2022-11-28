@@ -25,6 +25,10 @@ public class Usuario {
 		this.contrasenia = password;
 	}
 
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDni() {
 		return dni;
 	}

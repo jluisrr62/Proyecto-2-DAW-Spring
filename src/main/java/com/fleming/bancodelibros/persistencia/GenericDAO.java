@@ -5,8 +5,10 @@ import java.util.TimeZone;
 
 import javax.persistence.PersistenceException;
 
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 
 import com.fleming.bancodelibros.util.*;
 
@@ -84,9 +86,9 @@ private Class<T> claseDelRegistro;
 		
 		try {
 
-			sesion = HibernateUtil.getSessionFactory().withOptions().jdbcTimeZone(TimeZone.getTimeZone("GMT+1")).openSession();
+			sesion = HibernateUtil.getSessionFactory().openSession();
 			tr = sesion.beginTransaction();
-			resultado = (ArrayList<T> ) sesion.createQuery("from "+clase).getResultList();
+			resultado = (ArrayList<T>) sesion.createQuery("from "+clase).getResultList();
 			tr.commit();
 			
 			return resultado;

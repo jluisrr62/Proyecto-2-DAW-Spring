@@ -21,6 +21,10 @@ public class Admin extends Usuario{
 	@ManyToMany(mappedBy = "admins", fetch = FetchType.EAGER)
 	private Set<Libro> libros;
 	
+	public Admin() {
+		
+	}
+	
 	public Admin(String dni,String nombre, String n_colegiado, String nUsuario, String contrasenia) {
 		super(dni, nombre, nUsuario, contrasenia);
 		// TODO Auto-generated constructor stub
@@ -43,6 +47,12 @@ public class Admin extends Usuario{
 	public void setLibros(Set<Libro> libros) {
 		this.libros = libros;
 	}
+
+	@Override
+	public String toString() {
+		return "Admin [n_colegiado=" + n_colegiado + ", libros=" + libros + "]";
+	}
+	
 	
 	
 }

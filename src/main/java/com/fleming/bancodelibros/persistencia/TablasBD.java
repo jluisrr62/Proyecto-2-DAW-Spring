@@ -7,9 +7,11 @@ import com.fleming.bancodelibros.modelo.Libro;
 import com.fleming.bancodelibros.modelo.Recogida;
 import com.fleming.bancodelibros.modelo.Usuario;
 
-public class TablasBD {
+
+public class TablasBD {	
 	public void crearTablas() {
 		Alumno javi = new Alumno("734265B","Javier", "javierito", "123javier");
+		Alumno juan = new Alumno("735876X","Juan", "juanito", "juanito89");
 		Admin jorjito = new Admin("717255C","Jorge", "47891494", "jorjito67", "123456");
 		
 		Libro mates = new Libro("owghuiorwghb", "matematicas");
@@ -20,10 +22,11 @@ public class TablasBD {
 		Asignatura mates2 = new Asignatura("Mates","2Bachiller");
 		Asignatura lengua1 = new Asignatura("Lengua","2Bachiller");
 		
-		GenericDAO<Usuario> aDAO = new GenericDAO<Usuario>(Usuario.class);
+		GenericDAO<Alumno> aDAO = new GenericDAO<Alumno>(Alumno.class);
+		GenericDAO<Admin> xDAO = new GenericDAO<Admin>(Admin.class);
 		GenericDAO<Libro> bDAO = new GenericDAO<Libro>(Libro.class);
 		GenericDAO<Recogida> cDAO = new GenericDAO<Recogida>(Recogida.class);
-		GenericDAO<Asignatura> dDao = new GenericDAO<Asignatura>(Asignatura.class);
+		GenericDAO<Asignatura> dDao = new GenericDAO<Asignatura>(Asignatura.class);		
 		
 		mates2.getLibros().add(mates);
 		mates.setAsignatura(mates2);
@@ -48,7 +51,7 @@ public class TablasBD {
 		bDAO.insertarRegistroHibernate(mates);
 		bDAO.insertarRegistroHibernate(lengua);
 		aDAO.insertarRegistroHibernate(javi);
-		aDAO.insertarRegistroHibernate(jorjito);
+		xDAO.insertarRegistroHibernate(jorjito);
 		cDAO.insertarRegistroHibernate(recogida1);
 	}
 }

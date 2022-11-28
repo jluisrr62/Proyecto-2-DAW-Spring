@@ -43,6 +43,9 @@ public class Recogida {
 	@Column(name="hora")
 	Date hora;
 	
+	
+	
+	
 	public Recogida(){
 		this.fecha = new Date();
 		this.hora = new Date();
