@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fleming.bancodelibros.interfaces.AdminRepository;
 import com.fleming.bancodelibros.interfaces.AlumnoRepository;
+import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
 
 
@@ -25,8 +27,21 @@ public class MainController {
         return (List<Alumno>) alumnoRepository.findAll();
     }
 	
-	 @PostMapping("/alumnos")
-	 public void addAlumno(@RequestBody Alumno alumno) {
-	        alumnoRepository.save(alumno);
-	    }
+	@PostMapping("/alumnos")
+	public void addAlumno(@RequestBody Alumno alumno) {
+        alumnoRepository.save(alumno);
+	}
+	 
+	@Autowired
+	private final AdminRepository adminRepo = null; 
+	 
+	@GetMapping("/admins")
+	public List<Admin> getAdmins() {
+	    return (List<Admin>) adminRepo.findAll();
+	}
+		
+	@PostMapping("/admins")
+	public void addAdmins(@RequestBody Admin admin) {
+		adminRepo.save(admin);
+	}
 }

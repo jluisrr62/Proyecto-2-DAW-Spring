@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="admins")
 public class Admin extends Usuario{
@@ -19,6 +21,7 @@ public class Admin extends Usuario{
 	private String n_colegiado;
 	
 	@ManyToMany(mappedBy = "admins", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<Libro> libros;
 	
 	public Admin() {
@@ -50,7 +53,7 @@ public class Admin extends Usuario{
 
 	@Override
 	public String toString() {
-		return "Admin [n_colegiado=" + n_colegiado + ", libros=" + libros + "]";
+		return "Admin: "+this.getNombre()+ " DNI: "+this.getDni()+" nº de colegiado: "+this.getN_colegiado();
 	}
 	
 	
