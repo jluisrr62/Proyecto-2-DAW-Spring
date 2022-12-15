@@ -1,7 +1,8 @@
 package com.fleming.bancodelibros.modelo;
 
 import javax.persistence.Column;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -9,6 +10,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Usuario {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
 	@Column(name="dni", length=64)
 	private String dni;
 	@Column(name = "nombre")
@@ -27,6 +31,16 @@ public class Usuario {
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDni() {

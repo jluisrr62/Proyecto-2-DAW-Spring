@@ -39,7 +39,7 @@ public class Alumno extends Usuario{
 
 	@Override
 	public String toString() {
-		return "Alumno: "+this.getNombre()+ " DNI: "+this.getDni();
+		return  this.getId()+":"+this.getNombre()+ " DNI: "+this.getDni();
 	}
 
 	

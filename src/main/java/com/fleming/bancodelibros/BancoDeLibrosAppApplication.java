@@ -14,8 +14,8 @@ import com.fleming.bancodelibros.persistencia.TablasBD;
 public class BancoDeLibrosAppApplication {
 
 	public static void main(String[] args) {
-//		TablasBD bd = new TablasBD();
-//		bd.crearTablas();
+		TablasBD bd = new TablasBD();
+		bd.crearTablas();
 		
 		SpringApplication.run(BancoDeLibrosAppApplication.class, args);
 	}

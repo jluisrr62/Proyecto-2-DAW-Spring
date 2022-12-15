@@ -53,7 +53,7 @@ public class Admin extends Usuario{
 
 	@Override
 	public String toString() {
-		return "Admin: "+this.getNombre()+ " DNI: "+this.getDni()+" nº de colegiado: "+this.getN_colegiado();
+		return this.getId()+":"+this.getNombre()+ " DNI: "+this.getDni()+" nº de colegiado: "+this.getN_colegiado();
 	}
 	
 	

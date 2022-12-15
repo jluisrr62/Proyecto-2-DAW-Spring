@@ -30,7 +30,7 @@ public class Libro {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "admins_libros",
 			joinColumns = {@JoinColumn(name= "id_libro")},
