@@ -7,5 +7,4 @@ import com.fleming.bancodelibros.modelo.Alumno;
 
 @Repository
 public interface AlumnoRepository extends CrudRepository<Alumno, Integer>{
-	
 }

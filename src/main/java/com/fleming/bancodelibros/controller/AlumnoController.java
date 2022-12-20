@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,18 @@ public class AlumnoController {
 	public void deleteAlumno(@PathVariable("id") Integer idAlumno) {
 		alumnoRepository.deleteById(idAlumno);
 	}
-	 
+	
+	@PutMapping("/{id}")
+	public void updateAlumno(@PathVariable("id") Integer idAlumno, @RequestBody Alumno alumno) {
+		System.out.println("actualizado el alumno " + alumno.getNombre());
+		
+		Alumno alumnoUpdate = alumnoRepository.findById(idAlumno).orElseThrow();
+		
+		alumnoUpdate.setDni(alumno.getDni());
+		alumnoUpdate.setNombre(alumno.getNombre());
+		alumnoUpdate.setnUsuario(alumno.getnUsuario());
+		alumnoUpdate.setContrasenia(alumno.getContrasenia());
+		
+		alumnoRepository.save(alumnoUpdate);
+	}
 }
