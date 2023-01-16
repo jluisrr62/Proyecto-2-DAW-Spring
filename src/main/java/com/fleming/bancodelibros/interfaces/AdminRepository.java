@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.fleming.bancodelibros.modelo.Admin;
 
-public interface AdminRepository extends CrudRepository<Admin, String>{
+public interface AdminRepository extends CrudRepository<Admin, Integer>{
 }

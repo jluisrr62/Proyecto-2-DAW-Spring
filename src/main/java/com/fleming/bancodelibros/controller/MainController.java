@@ -22,16 +22,5 @@ import com.fleming.bancodelibros.modelo.Alumno;
 public class MainController {
 
 	
-	@Autowired
-	private final AdminRepository adminRepo = null; 
-	 
-	@GetMapping("/admins")
-	public List<Admin> getAdmins() {
-	    return (List<Admin>) adminRepo.findAll();
-	}
-		
-	@PostMapping("/admins")
-	public void addAdmins(@RequestBody Admin admin) {
-		adminRepo.save(admin);
-	}
+
 }
