@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fleming.bancodelibros.interfaces.AdminRepository;
 import com.fleming.bancodelibros.modelo.Admin;
+import com.fleming.bancodelibros.repos.AdminRepository;
 
 
 

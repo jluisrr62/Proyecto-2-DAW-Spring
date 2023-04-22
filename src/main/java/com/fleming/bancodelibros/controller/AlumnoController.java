@@ -3,6 +3,7 @@ package com.fleming.bancodelibros.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fleming.bancodelibros.interfaces.AlumnoRepository;
 import com.fleming.bancodelibros.modelo.Alumno;
+import com.fleming.bancodelibros.repos.AlumnoRepository;
+import com.fleming.bancodelibros.services.AlumnoService;
 
 
 @RequestMapping("/alumnos")
@@ -23,34 +25,67 @@ import com.fleming.bancodelibros.modelo.Alumno;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AlumnoController {
 	@Autowired
-	private final AlumnoRepository alumnoRepository = null;
+	private AlumnoService alumnoService;
+	
+	@PostMapping("/generar")
+	public void generarAlumnos() {
+		alumnoService.generarAlumnos();
+	}
+	
 	
 	@GetMapping
-	public List<Alumno> getAlumnos() {
-        return (List<Alumno>) alumnoRepository.findAll();
+	public ResponseEntity<List<Alumno>> getAlumnos() {
+		
+		List<Alumno> alumnos = alumnoService.getAlumnos();
+		
+		if(alumnos == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(alumnos);
+		}
     }
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Alumno> getAlumno(@PathVariable("id") Integer idAlumno) {
+		
+		Alumno alumno = alumnoService.getAlumno(idAlumno);
+		
+		if(alumno == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(alumno);
+		}
+    }
+		
 	@PostMapping
-	public void addAlumno(@RequestBody Alumno alumno) {
-        alumnoRepository.save(alumno);
+	public ResponseEntity<Alumno> addAlumno(@RequestBody Alumno alumno) {
+		
+		Alumno alumnoCreated = alumnoService.createAlumno(alumno);;
+		
+		if(alumno == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(alumnoCreated);
+		}
+		
+		
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteAlumno(@PathVariable("id") Integer idAlumno) {
-		alumnoRepository.deleteById(idAlumno);
+	public ResponseEntity<Object> deleteAlumno(@PathVariable("id") Integer idAlumno) {
+		alumnoService.deleteAlumno(idAlumno);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping("/{id}")
-	public void updateAlumno(@PathVariable("id") Integer idAlumno, @RequestBody Alumno alumno) {
-		System.out.println("actualizado el alumno " + alumno.getNombre());
+	public ResponseEntity<Alumno> updateAlumno(@PathVariable("id") Integer idAlumno, @RequestBody Alumno alumno) {
+		Alumno alumnoUpdated = alumnoService.updateAlumno(idAlumno, alumno);
 		
-		Alumno alumnoUpdate = alumnoRepository.findById(idAlumno).orElseThrow();
-		
-		alumnoUpdate.setDni(alumno.getDni());
-		alumnoUpdate.setNombre(alumno.getNombre());
-		alumnoUpdate.setnUsuario(alumno.getnUsuario());
-		alumnoUpdate.setContrasenia(alumno.getContrasenia());
-		
-		alumnoRepository.save(alumnoUpdate);
+		if(alumnoUpdated == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(alumnoUpdated);
+		}
 	}
 }

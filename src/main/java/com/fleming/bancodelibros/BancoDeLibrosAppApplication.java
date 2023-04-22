@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.fleming.bancodelibros.interfaces.AdminRepository;
-import com.fleming.bancodelibros.interfaces.AlumnoRepository;
 import com.fleming.bancodelibros.modelo.Alumno;
 import com.fleming.bancodelibros.persistencia.TablasBD;
+import com.fleming.bancodelibros.repos.AdminRepository;
+import com.fleming.bancodelibros.repos.AlumnoRepository;
 
 @SpringBootApplication
 public class BancoDeLibrosAppApplication {

@@ -1,4 +1,4 @@
-package com.fleming.bancodelibros.interfaces;
+package com.fleming.bancodelibros.repos;
 
 import org.springframework.data.repository.CrudRepository;
 
