@@ -7,19 +7,18 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class RecogidaId implements Serializable{
-
-	 
+public class DepositoId implements Serializable{
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3597696445523234482L;
+	private static final long serialVersionUID = -1966660972842828669L;
 
 	@Column(name = "fecha_hora")
 	private LocalDateTime Fecha;
 	
-	@Column(name = "alumno_id")
-	private Long alumnoId;
+	@Column(name = "admin_id")
+	private Long adminId;
 	
 	@Column(name = "libro_id")
 	private Long libroId;
@@ -32,12 +31,12 @@ public class RecogidaId implements Serializable{
 		Fecha = fecha;
 	}
 
-	public Long getAlumnoId() {
-		return alumnoId;
+	public Long getAdminId() {
+		return adminId;
 	}
 
-	public void setAlumnoId(Long alumnoId) {
-		this.alumnoId = alumnoId;
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
 	}
 
 	public Long getLibroId() {
@@ -47,8 +46,5 @@ public class RecogidaId implements Serializable{
 	public void setLibroId(Long libroId) {
 		this.libroId = libroId;
 	}
-	
-	
-	
 	
 }

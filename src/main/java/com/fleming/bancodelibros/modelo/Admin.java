@@ -8,10 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="admins")
@@ -20,8 +18,8 @@ public class Admin extends Usuario{
 	@Column(name="n_colegiado")
 	private String nColegiado;
 	
-	@ManyToMany(mappedBy = "admins", fetch = FetchType.LAZY)
-	private Set<Libro> libros;
+	@OneToMany(mappedBy="admin", fetch = FetchType.LAZY)
+	private Set<Deposito> depositos;
 	
 	public Admin() {
 		
@@ -31,7 +29,7 @@ public class Admin extends Usuario{
 		super(dni, nombre, nUsuario, contrasenia);
 		// TODO Auto-generated constructor stub
 		this.nColegiado = nColegiado;
-		this.libros = new HashSet<Libro>();
+		this.depositos = new HashSet<Deposito>();
 	}
 
 	
@@ -44,12 +42,12 @@ public class Admin extends Usuario{
 		this.nColegiado = nColegiado;
 	}
 
-	public Set<Libro> getLibros() {
-		return libros;
+	public Set<Deposito> getDepositos() {
+		return depositos;
 	}
 
-	public void setLibros(Set<Libro> libros) {
-		this.libros = libros;
+	public void setDepositos(Set<Deposito> depositos) {
+		this.depositos = depositos;
 	}
 
 	@Override

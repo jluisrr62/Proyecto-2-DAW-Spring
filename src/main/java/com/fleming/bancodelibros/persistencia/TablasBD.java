@@ -1,16 +1,9 @@
 package com.fleming.bancodelibros.persistencia;
 
-import java.time.LocalDateTime;
-
-import com.fleming.bancodelibros.modelo.Admin;
-import com.fleming.bancodelibros.modelo.Alumno;
-import com.fleming.bancodelibros.modelo.Asignatura;
-import com.fleming.bancodelibros.modelo.Libro;
-import com.fleming.bancodelibros.modelo.Recogida;
-import com.fleming.bancodelibros.modelo.Usuario;
 
 
 public class TablasBD {	
+	/*
 	public void crearTablas() {
 		Alumno javi = new Alumno("734265B","Javier", "javierito", "123javier");
 		Alumno juan = new Alumno("735876X","Juan", "juanito", "juanito89");
@@ -55,4 +48,5 @@ public class TablasBD {
 		xDAO.insertarRegistroHibernate(jorjito);
 		cDAO.insertarRegistroHibernate(recogida1);
 	}
+	*/
 }

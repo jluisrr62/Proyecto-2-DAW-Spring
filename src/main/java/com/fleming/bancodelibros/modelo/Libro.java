@@ -3,16 +3,12 @@ package com.fleming.bancodelibros.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,13 +26,8 @@ public class Libro {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "admins_libros",
-			joinColumns = {@JoinColumn(name= "id_libro")},
-			inverseJoinColumns = {@JoinColumn(name="id_admin")}
-		)
-	private Set<Admin> admins;
+	@OneToMany(mappedBy="libro")
+	Set<Deposito> depositos;
 	
 	@OneToMany(mappedBy="libro")
 	Set<Recogida> recogidas;
@@ -53,7 +44,7 @@ public class Libro {
 		this.ISBN = ISBN;
 		this.nombre = nombre;
 		this.recogidas =  new HashSet<Recogida>();
-		this.admins = new HashSet<Admin>();
+		this.depositos = new HashSet<Deposito>();
 	}
 
 	public Asignatura getAsignatura() {
@@ -96,15 +87,11 @@ public class Libro {
 		this.id = id;
 	}
 
-	public Set<Admin> getAdmins() {
-		return admins;
+	public Set<Deposito> getDepositos() {
+		return depositos;
 	}
 
-	public void setAdmins(Set<Admin> admins) {
-		this.admins = admins;
+	public void setDepositos(Set<Deposito> depositos) {
+		this.depositos = depositos;
 	}
-
-	
-	
-	
 }
