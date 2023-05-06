@@ -3,6 +3,7 @@ package com.fleming.bancodelibros.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fleming.bancodelibros.modelo.Admin;
-import com.fleming.bancodelibros.repos.AdminRepository;
+import com.fleming.bancodelibros.services.AdminService;
 
 
 
@@ -22,35 +23,69 @@ import com.fleming.bancodelibros.repos.AdminRepository;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
+	
+	
 	@Autowired
-	private final AdminRepository adminRepository = null;
+	private AdminService adminService;
+	
+	@PostMapping("/generar")
+	public void generarAdmins() {
+		adminService.generarAdmins();
+	}
 	
 	@GetMapping
-	public List<Admin> getadmins() {
-        return (List<Admin>) adminRepository.findAll();
+	public ResponseEntity<List<Admin>> getAdmins() {
+		
+		List<Admin> admins = adminService.getAdmins();
+		
+		if(admins == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(admins);
+		}
     }
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Admin> getAdmin(@PathVariable("id") Integer idAdmin) {
+		
+		Admin admin = adminService.getAdmin(idAdmin);
+		
+		if(admin == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(admin);
+		}
+    }
+		
 	@PostMapping
-	public void addadmin(@RequestBody Admin admin) {
-        adminRepository.save(admin);
+	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
+		
+		Admin adminCreated = adminService.createAdmin(admin);;
+		
+		if(admin == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(adminCreated);
+		}
+		
+		
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteadmin(@PathVariable("id") Integer idadmin) {
-		adminRepository.deleteById(idadmin);
+	public ResponseEntity<Object> deleteAdmin(@PathVariable("id") Integer idAdmin) {
+		adminService.deleteAdmin(idAdmin);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping("/{id}")
-	public void updateadmin(@PathVariable("id") Integer idadmin, @RequestBody Admin admin) {
-		System.out.println("actualizado el admin " + admin.getNombre());
+	public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Integer idAdmin, @RequestBody Admin admin) {
+		Admin adminUpdated = adminService.updateAdmin(idAdmin, admin);
 		
-		Admin adminUpdate = adminRepository.findById(idadmin).orElseThrow();
-		
-		adminUpdate.setDni(admin.getDni());
-		adminUpdate.setNombre(admin.getNombre());
-		adminUpdate.setnUsuario(admin.getnUsuario());
-		adminUpdate.setContrasenia(admin.getContrasenia());
-		
-		adminRepository.save(adminUpdate);
+		if(adminUpdated == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(adminUpdated);
+		}
 	}
 }

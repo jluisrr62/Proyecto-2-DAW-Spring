@@ -1,5 +1,7 @@
 package com.fleming.bancodelibros.persistencia;
 
+import java.time.LocalDateTime;
+
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
 import com.fleming.bancodelibros.modelo.Asignatura;
@@ -34,8 +36,7 @@ public class TablasBD {
 		lengua1.getLibros().add(lengua);
 		lengua.setAsignatura(lengua1);
 		
-		recogida1.setFecha(recogida1.parseFecha("2022-06-17"));
-		recogida1.setHora(recogida1.parseHora("10:30"));
+		recogida1.getId().setFecha(LocalDateTime.now());
 		
 		javi.getRecogidas().add(recogida1);
 		recogida1.setAlumno(javi);

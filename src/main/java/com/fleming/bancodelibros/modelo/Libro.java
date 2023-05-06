@@ -23,7 +23,7 @@ public class Libro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
 	@Column(name="ISBN")
 	private String ISBN;
@@ -88,11 +88,11 @@ public class Libro {
 		this.recogidas = recogidas;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

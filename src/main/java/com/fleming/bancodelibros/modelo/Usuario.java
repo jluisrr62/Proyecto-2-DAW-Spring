@@ -1,24 +1,32 @@
 package com.fleming.bancodelibros.modelo;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 
-@MappedSuperclass
-public class Usuario {
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Usuario {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name="id")
-	private Integer id;
+	private Long id;
+	
 	@Column(name="dni", length=64)
 	private String dni;
+	
 	@Column(name = "nombre")
 	private String nombre;
+	
 	@Column(name="n_usuario")
 	private String nUsuario;
+	
 	@Column(name="contrasenia")
 	private String contrasenia;
 
@@ -35,11 +43,11 @@ public class Usuario {
 
 	
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

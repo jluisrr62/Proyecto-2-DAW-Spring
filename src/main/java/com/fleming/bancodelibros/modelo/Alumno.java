@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="alumnos")
 public class Alumno extends Usuario{
 
-	@OneToMany(mappedBy="alumno", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="alumno", fetch = FetchType.LAZY)
 	private Set<Recogida> recogidas;
 
 	public Alumno() {
