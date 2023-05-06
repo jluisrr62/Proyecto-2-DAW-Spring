@@ -4,9 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import com.fleming.bancodelibros.modelo.Alumno;
-import com.fleming.bancodelibros.persistencia.TablasBD;
 import com.fleming.bancodelibros.repos.AdminRepository;
 import com.fleming.bancodelibros.repos.AlumnoRepository;
 
@@ -14,8 +11,6 @@ import com.fleming.bancodelibros.repos.AlumnoRepository;
 public class BancoDeLibrosAppApplication {
 
 	public static void main(String[] args) {
-//		TablasBD bd = new TablasBD();
-//		bd.crearTablas();
 		
 		SpringApplication.run(BancoDeLibrosAppApplication.class, args);
 	}
