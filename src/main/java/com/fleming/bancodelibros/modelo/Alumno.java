@@ -14,6 +14,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="alumnos")
 public class Alumno extends Usuario{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1300591480605657050L;
 	@OneToMany(mappedBy="alumno", fetch = FetchType.LAZY)
 	private Set<Recogida> recogidas;
 
@@ -41,7 +45,4 @@ public class Alumno extends Usuario{
 	public String toString() {
 		return  this.getId()+":"+this.getNombre()+ " DNI: "+this.getDni();
 	}
-
-	
-	
 }

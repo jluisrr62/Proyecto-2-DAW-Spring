@@ -2,6 +2,8 @@ package com.fleming.bancodelibros.modelo;
 
 
 
+import java.io.Serializable;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -11,8 +13,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "recogidas")
-public class Recogida {
+public class Recogida implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7486859356006199879L;
+
 	@EmbeddedId
 	private RecogidaId id;
 	

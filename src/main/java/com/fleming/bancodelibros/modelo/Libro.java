@@ -1,5 +1,6 @@
 package com.fleming.bancodelibros.modelo;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Libros")
-public class Libro {
+public class Libro implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1427189113561464543L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")

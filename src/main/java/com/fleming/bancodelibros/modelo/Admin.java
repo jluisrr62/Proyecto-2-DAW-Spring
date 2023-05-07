@@ -15,6 +15,11 @@ import javax.persistence.Table;
 @Table(name="admins")
 public class Admin extends Usuario{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6686615372724772602L;
+
 	@Column(name="n_colegiado")
 	private String nColegiado;
 	
