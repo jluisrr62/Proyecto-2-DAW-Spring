@@ -11,6 +11,5 @@ public interface AdminService {
 	public Admin updateAdmin(Integer id, Admin admin);
 	public void deleteAdmin(Integer id);
 	
-	
 	public void generarAdmins();
 }
