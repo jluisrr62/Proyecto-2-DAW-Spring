@@ -1,10 +1,13 @@
 package com.fleming.bancodelibros.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fleming.bancodelibros.controller.dto.AdminDto;
+import com.fleming.bancodelibros.mapper.MapperService;
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.repos.AdminRepository;
 import com.fleming.bancodelibros.services.AdminService;
@@ -14,49 +17,60 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	private AdminRepository adminRepo;
+	
+	@Autowired
+	private MapperService mapper;
 
 	@Override
-	public Admin createAdmin(Admin admin) {
-		// TODO Auto-generated method stub
-		return adminRepo.save(admin);
+	public AdminDto createYupdateAdmin(AdminDto adminDto) {
+		
+		Admin admin = mapper.dtoToAdmin(adminDto);
+		
+		
+		return mapper.adminToDto(adminRepo.save(admin));
 	}
 
 	@Override
-	public Admin getAdmin(Integer id) {
-		// TODO Auto-generated method stub
+	public Admin getAdmin(Long id) {
+		
 		return adminRepo.findById(id).get();
 	}
 
+	@Override 
+	public AdminDto getAdminDto(Long id) {
+		
+		return mapper.adminToDto(getAdmin(id));
+	}
+	
 	@Override
 	public List<Admin> getAdmins() {
-		// TODO Auto-generated method stub
-		return (List<Admin>) adminRepo.findAll();
+		
+		return adminRepo.findAll();
+	}
+	
+	@Override
+	public List<AdminDto> getAdminsDto(){
+		
+		List<AdminDto> respuesta = new ArrayList<>();
+		
+		for (Admin admin : getAdmins()) {
+			
+			respuesta.add(mapper.adminToDto(admin));
+		}
+		
+		return respuesta;
 	}
 
-	@Override
-	public Admin updateAdmin(Integer id, Admin admin) {
-		// TODO Auto-generated method stub
-		
-		Admin adminUpdate = adminRepo.findById(id).get();
-		
-		adminUpdate.setDni(admin.getDni());
-		adminUpdate.setNombre(admin.getNombre());
-		adminUpdate.setnUsuario(admin.getnUsuario());
-		adminUpdate.setnColegiado(admin.getnColegiado());
-		adminUpdate.setContrasenia(admin.getContrasenia());
-		
-		return adminRepo.save(adminUpdate);
-	}
 
 	@Override
-	public void deleteAdmin(Integer id) {
-		// TODO Auto-generated method stub
+	public void deleteAdmin(Long id) {
+		
 		adminRepo.deleteById(id);
 	}
 
 	@Override
 	public void generarAdmins() {
-		// TODO Auto-generated method stub
+		
 		Admin a1 = new Admin("717564691B", "Javier","6411684","jhifoew", "rgowv");
 		Admin a2 = new Admin("717564623D", "Jorge","641163244","rgrgw", "rgorgwv");
 		

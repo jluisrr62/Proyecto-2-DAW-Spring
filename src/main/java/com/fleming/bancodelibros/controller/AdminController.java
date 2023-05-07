@@ -3,18 +3,21 @@ package com.fleming.bancodelibros.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fleming.bancodelibros.modelo.Admin;
+import com.fleming.bancodelibros.controller.dto.AdminDto;
 import com.fleming.bancodelibros.services.AdminService;
 
 
@@ -24,7 +27,6 @@ import com.fleming.bancodelibros.services.AdminService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 	
-	
 	@Autowired
 	private AdminService adminService;
 	
@@ -33,59 +35,34 @@ public class AdminController {
 		adminService.generarAdmins();
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Admin>> getAdmins() {
+	@GetMapping(path = "/mostrar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AdminDto>> getAdmins() {
 		
-		List<Admin> admins = adminService.getAdmins();
-		
-		if(admins == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(admins);
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdminsDto());
     }
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Admin> getAdmin(@PathVariable("id") Integer idAdmin) {
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdminDto> getAdmin(@RequestParam Long idAdmin) {
 		
-		Admin admin = adminService.getAdmin(idAdmin);
-		
-		if(admin == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(admin);
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdminDto(idAdmin));
     }
 		
 	@PostMapping
-	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
+	public ResponseEntity<AdminDto> addAdmin(@RequestBody AdminDto adminDto) {
 		
-		Admin adminCreated = adminService.createAdmin(admin);;
-		
-		if(admin == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(adminCreated);
-		}
-		
-		
+		return ResponseEntity.status(HttpStatus.OK).body(adminService.createYupdateAdmin(adminDto));
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteAdmin(@PathVariable("id") Integer idAdmin) {
+	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAdmin(@RequestParam Long idAdmin) {
 		adminService.deleteAdmin(idAdmin);
-		
-		return ResponseEntity.noContent().build();
+
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Integer idAdmin, @RequestBody Admin admin) {
-		Admin adminUpdated = adminService.updateAdmin(idAdmin, admin);
-		
-		if(adminUpdated == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(adminUpdated);
-		}
+	public ResponseEntity<AdminDto> updateAdmin(@RequestBody AdminDto adminDto) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(adminService.createYupdateAdmin(adminDto));
 	}
 }

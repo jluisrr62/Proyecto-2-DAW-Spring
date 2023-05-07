@@ -2,14 +2,16 @@ package com.fleming.bancodelibros.services;
 
 import java.util.List;
 
+import com.fleming.bancodelibros.controller.dto.AdminDto;
 import com.fleming.bancodelibros.modelo.Admin;
 
 public interface AdminService {
-	public Admin createAdmin(Admin admin);
-	public Admin getAdmin(Integer id);
-	public List<Admin> getAdmins();
-	public Admin updateAdmin(Integer id, Admin admin);
-	public void deleteAdmin(Integer id);
+	AdminDto createYupdateAdmin(AdminDto admin);
+	Admin getAdmin(Long id);
+	List<Admin> getAdmins();
+	void deleteAdmin(Long id);
 	
-	public void generarAdmins();
+	void generarAdmins();
+	AdminDto getAdminDto(Long id);
+	List<AdminDto> getAdminsDto();
 }

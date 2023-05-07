@@ -3,25 +3,28 @@ package com.fleming.bancodelibros.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fleming.bancodelibros.modelo.Alumno;
+import com.fleming.bancodelibros.controller.dto.AlumnoDto;
 import com.fleming.bancodelibros.services.AlumnoService;
-
 
 @RequestMapping("/alumnos")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AlumnoController {
+	
 	@Autowired
 	private AlumnoService alumnoService;
 	
@@ -30,60 +33,35 @@ public class AlumnoController {
 		alumnoService.generarAlumnos();
 	}
 	
-	
-	@GetMapping
-	public ResponseEntity<List<Alumno>> getAlumnos() {
+	@GetMapping(path = "/mostrar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<AlumnoDto>> getAlumnos() {
 		
-		List<Alumno> alumnos = alumnoService.getAlumnos();
-		
-		if(alumnos == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(alumnos);
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getAlumnosDto());
     }
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Alumno> getAlumno(@PathVariable("id") Integer idAlumno) {
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AlumnoDto> getAlumno(@RequestParam Long idAlumno) {
 		
-		Alumno alumno = alumnoService.getAlumno(idAlumno);
-		
-		if(alumno == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(alumno);
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(alumnoService.getAlumnoDto(idAlumno));
     }
 		
 	@PostMapping
-	public ResponseEntity<Alumno> addAlumno(@RequestBody Alumno alumno) {
+	public ResponseEntity<AlumnoDto> addAlumno(@RequestBody AlumnoDto alumnoDto) {
 		
-		Alumno alumnoCreated = alumnoService.createAlumno(alumno);;
-		
-		if(alumno == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(alumnoCreated);
-		}
-		
-		
+		return ResponseEntity.status(HttpStatus.OK).body(alumnoService.createYupdateAlumno(alumnoDto));
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteAlumno(@PathVariable("id") Integer idAlumno) {
+	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAlumno(@RequestParam Long idAlumno) {
 		alumnoService.deleteAlumno(idAlumno);
-		
-		return ResponseEntity.noContent().build();
+
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Alumno> updateAlumno(@PathVariable("id") Integer idAlumno, @RequestBody Alumno alumno) {
-		Alumno alumnoUpdated = alumnoService.updateAlumno(idAlumno, alumno);
-		
-		if(alumnoUpdated == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(alumnoUpdated);
-		}
+	public ResponseEntity<AlumnoDto> updateAlumno(@RequestBody AlumnoDto alumnoDto) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(alumnoService.createYupdateAlumno(alumnoDto));
 	}
+	
 }

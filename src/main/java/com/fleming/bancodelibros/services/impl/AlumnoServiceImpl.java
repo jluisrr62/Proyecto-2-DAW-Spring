@@ -1,10 +1,13 @@
 package com.fleming.bancodelibros.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fleming.bancodelibros.controller.dto.AlumnoDto;
+import com.fleming.bancodelibros.mapper.MapperService;
 import com.fleming.bancodelibros.modelo.Alumno;
 import com.fleming.bancodelibros.repos.AlumnoRepository;
 import com.fleming.bancodelibros.services.AlumnoService;
@@ -15,49 +18,59 @@ public class AlumnoServiceImpl implements AlumnoService{
 	@Autowired
 	private AlumnoRepository alumnoRepo;
 	
+	@Autowired
+	private MapperService mapper;
+
 	@Override
-	public Alumno createAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return alumnoRepo.save(alumno);
+	public AlumnoDto createYupdateAlumno(AlumnoDto alumnoDto) {
+		
+		Alumno alumno = mapper.dtoToAlumno(alumnoDto);
+		
+		
+		return mapper.alumnoToDto(alumnoRepo.save(alumno));
 	}
 
 	@Override
-	public Alumno getAlumno(Integer id) {
-		// TODO Auto-generated method stub
-		return alumnoRepo.findById(id).orElseThrow();
+	public Alumno getAlumno(Long id) {
+		
+		return alumnoRepo.findById(id).get();
 	}
 
+	@Override 
+	public AlumnoDto getAlumnoDto(Long id) {
+		
+		return mapper.alumnoToDto(getAlumno(id));
+	}
+	
 	@Override
 	public List<Alumno> getAlumnos() {
-		// TODO Auto-generated method stub
-		return (List<Alumno>) alumnoRepo.findAll();
+		
+		return alumnoRepo.findAll();
+	}
+	
+	@Override
+	public List<AlumnoDto> getAlumnosDto(){
+		
+		List<AlumnoDto> respuesta = new ArrayList<>();
+		
+		for (Alumno alumno : getAlumnos()) {
+			
+			respuesta.add(mapper.alumnoToDto(alumno));
+		}
+		
+		return respuesta;
 	}
 
-	@Override
-	public Alumno updateAlumno(Integer id, Alumno alumno) {
-		// TODO Auto-generated method stub
-		
-		Alumno alumnoUpdate = alumnoRepo.findById(id).orElseThrow();
-		
-		alumnoUpdate.setDni(alumno.getDni());
-		alumnoUpdate.setNombre(alumno.getNombre());
-		alumnoUpdate.setnUsuario(alumno.getnUsuario());
-		alumnoUpdate.setContrasenia(alumno.getContrasenia());
-		
-		
-		
-		return alumnoRepo.save(alumnoUpdate);
-	}
 
 	@Override
-	public void deleteAlumno(Integer id) {
-		// TODO Auto-generated method stub
+	public void deleteAlumno(Long id) {
+		
 		alumnoRepo.deleteById(id);
 	}
 
 	@Override
 	public void generarAlumnos() {
-		// TODO Auto-generated method stub
+	
 		
 		Alumno a1 = new Alumno("717564691B", "Jose", "jhifoew", "rgowv");
 		Alumno a2 = new Alumno("717564691C", "Jaime", "jhifoew", "rgowv");
@@ -66,5 +79,6 @@ public class AlumnoServiceImpl implements AlumnoService{
 		alumnoRepo.save(a2);
 		
 	}
+
 
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.AdminDto;
 import com.fleming.bancodelibros.controller.dto.AlumnoDto;
@@ -24,24 +26,31 @@ import com.fleming.bancodelibros.services.DepositoService;
 import com.fleming.bancodelibros.services.LibroService;
 import com.fleming.bancodelibros.services.RecogidaService;
 
+@Service
 public class MapperServiceImpl implements MapperService{
 
 	@Autowired
+	@Lazy
 	AdminService adminService;
 	
 	@Autowired
+	@Lazy
 	DepositoService depositoService;
 	
 	@Autowired
+	@Lazy
 	AlumnoService alumnoService;
 	
 	@Autowired
+	@Lazy
 	AsignaturaService asignaturaService;
 	
 	@Autowired
+	@Lazy
 	LibroService libroService;
 	
 	@Autowired
+	@Lazy
 	RecogidaService recogidaService;
 	
 	@Override
