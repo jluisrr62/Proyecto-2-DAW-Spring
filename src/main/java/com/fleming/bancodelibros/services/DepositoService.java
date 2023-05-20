@@ -10,4 +10,6 @@ public interface DepositoService {
 
 	Set<Deposito> getDepositosPorAdminId(Long adminId);
 	List<LocalDateTime> getFechasPorAdminId(Long adminID);
+	List<LocalDateTime> getFechasDepositos(Set<Deposito> depositos);
+	Set<Deposito> getDepositosByLibroId(Long id);
 }	

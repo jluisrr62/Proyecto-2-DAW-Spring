@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class AlumnoDto {
-private Long id;
+
+	private Long id;
 	
 	private String dni;
 	

@@ -2,7 +2,6 @@ package com.fleming.bancodelibros.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,26 +18,31 @@ public class DepositoServiceImpl implements DepositoService{
 	
 	@Override
 	public Set<Deposito> getDepositosPorAdminId(Long adminId) {
-		Set<Deposito> depositos = new HashSet<>();
-		
-		for (Deposito depo : depositoRepo.findAll()) {
-			if(depo.getAdmin().getId() == adminId) 
-				depositos.add(depo);
-		}
-		
-		return depositos;
+	
+		return depositoRepo.findByAdminId(adminId);
 	}
 
 	@Override
 	public List<LocalDateTime> getFechasPorAdminId(Long adminID) {
 		
+		return depositoRepo.findIdFechaByAdminId(adminID);
+	}
+
+	@Override
+	public List<LocalDateTime> getFechasDepositos(Set<Deposito> depositos) {
 		List<LocalDateTime> fechas = new ArrayList<>();
 		
-		for (Deposito deposito : depositoRepo.findAll()) {
+		for (Deposito deposito : depositos) {
 			fechas.add(deposito.getId().getFecha());
 		}
 		
 		return fechas;
+	}
+
+	@Override
+	public Set<Deposito> getDepositosByLibroId(Long id) {
+		
+		return depositoRepo.findByLibroId(id);
 	}
 
 }

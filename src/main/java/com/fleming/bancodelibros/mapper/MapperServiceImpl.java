@@ -3,6 +3,7 @@ package com.fleming.bancodelibros.mapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -17,6 +18,7 @@ import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
 import com.fleming.bancodelibros.modelo.Asignatura;
 import com.fleming.bancodelibros.modelo.Deposito;
+import com.fleming.bancodelibros.modelo.DepositoId;
 import com.fleming.bancodelibros.modelo.Libro;
 import com.fleming.bancodelibros.modelo.Recogida;
 import com.fleming.bancodelibros.services.AdminService;
@@ -138,37 +140,114 @@ public class MapperServiceImpl implements MapperService{
 	@Override
 	public AsignaturaDto asignaturaToDto(Asignatura asignatura) {
 		
-		return null;
+		AsignaturaDto respuesta = new AsignaturaDto();
+		
+		respuesta.setId(asignatura.getId());
+		respuesta.setNombre(asignatura.getNombre());
+		respuesta.setCurso(asignatura.getCurso());
+		respuesta.setNombresLibros(asignaturaService.getNombresByLibros(asignatura.getLibros()));
+		
+		return respuesta;
 	}
 
 	@Override
 	public Asignatura dtoToAsignatura(AsignaturaDto asignaturaDto) {
 		
-		return null;
+		Asignatura respuesta = new Asignatura();
+		
+		respuesta.setId(asignaturaDto.getId());
+		respuesta.setNombre(asignaturaDto.getNombre());
+		respuesta.setCurso(asignaturaDto.getCurso());
+		respuesta.setLibros(asignaturaService.findLibrosByNombre(asignaturaDto.getNombresLibros()));
+		
+		return respuesta;
 	}
 
 	@Override
 	public DepositoDto depositoToDto(Deposito deposito) {
 		
-		return null;
+		DepositoDto respuesta = new DepositoDto(); 
+		
+		respuesta.setIsbn(deposito.getLibro().getIsbn());
+		respuesta.setnColegiado(deposito.getAdmin().getnColegiado());
+		respuesta.setFecha(deposito.getId().getFecha());
+		
+		return respuesta;
 	}
 
 	@Override
 	public Deposito dtoToDeposito(DepositoDto depositoDto) {
+		Deposito respuesta = new Deposito();
 		
-		return null;
+		DepositoId id = new DepositoId();
+		
+		Admin admin = adminService.getAdminByNumeroColegiado(depositoDto.getnColegiado());
+		Libro libro = libroService.getLibroByIsbn(depositoDto.getIsbn());
+		
+		id.setAdminId(admin.getId());
+		id.setLibroId(libro.getId());
+		id.setFecha(depositoDto.getFecha());
+		
+		respuesta.setId(id);
+		respuesta.setAdmin(admin);
+		respuesta.setLibro(libro);
+		
+		return respuesta;
 	}
 
 	@Override
 	public LibroDto libroToDto(Libro libro) {
 		
-		return null;
+		LibroDto respuesta = new LibroDto();
+		
+		respuesta.setId(libro.getId());
+		respuesta.setIsbn(libro.getIsbn());
+		respuesta.setNombre(libro.getNombre());
+		respuesta.setAsignatura(libro.getAsignatura().getNombre());
+		respuesta.setFechasDepositos(depositoService.getFechasDepositos(libro.getDepositos()));
+		respuesta.setFechasRecogidas(recogidaService.getFechasRecogidas(libro.getRecogidas()));
+		
+		return respuesta;
 	}
 
 	@Override
 	public Libro dtoToLibro(LibroDto libroDto) {
 		
-		return null;
+		Libro respuesta = new Libro();
+		
+		respuesta.setId(libroDto.getId());
+		respuesta.setIsbn(libroDto.getIsbn());
+		respuesta.setNombre(libroDto.getNombre());
+		respuesta.setAsignatura(asignaturaService.getAsignaturaByNombre(libroDto.getAsignatura()));
+		respuesta.setDepositos(depositoService.getDepositosByLibroId(libroDto.getId()));
+		respuesta.setRecogidas(recogidaService.getRecogidasByLibroId(libroDto.getId()));
+		
+		return respuesta;
+	}
+	
+	@Override
+	public List<AdminDto> adminsToDtos(List<Admin> admins) {
+		List<AdminDto> respuesta = new ArrayList<>();
+		
+		for (Admin admin : admins) {
+			
+			respuesta.add(adminToDto(admin));
+		}
+		
+		return respuesta;
+		
+	}
+	
+	@Override
+	public List<AlumnoDto> alumnosToDtos(List<Alumno> alumnos){
+		List<AlumnoDto> respuesta = new ArrayList<>();
+		
+		for (Alumno alumno : alumnos) {
+			
+			respuesta.add(alumnoToDto(alumno));
+		}
+		
+		return respuesta;
 	}
 
 }

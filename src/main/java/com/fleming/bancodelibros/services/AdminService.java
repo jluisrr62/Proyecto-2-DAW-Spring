@@ -14,4 +14,5 @@ public interface AdminService {
 	void generarAdmins();
 	AdminDto getAdminDto(Long id);
 	List<AdminDto> getAdminsDto();
+	Admin getAdminByNumeroColegiado(String getnColegiado);
 }

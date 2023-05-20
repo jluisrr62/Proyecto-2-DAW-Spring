@@ -1,6 +1,5 @@
 package com.fleming.bancodelibros.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class AlumnoServiceImpl implements AlumnoService{
 	@Override
 	public Alumno getAlumno(Long id) {
 		
-		return alumnoRepo.findById(id).get();
+		return alumnoRepo.findById(id).isEmpty() ? null : alumnoRepo.findById(id).get();
 	}
 
 	@Override 
@@ -49,18 +48,10 @@ public class AlumnoServiceImpl implements AlumnoService{
 	}
 	
 	@Override
-	public List<AlumnoDto> getAlumnosDto(){
+	public List<AlumnoDto> getAlumnosDto() {
 		
-		List<AlumnoDto> respuesta = new ArrayList<>();
-		
-		for (Alumno alumno : getAlumnos()) {
-			
-			respuesta.add(mapper.alumnoToDto(alumno));
-		}
-		
-		return respuesta;
+		return mapper.alumnosToDtos(getAlumnos());
 	}
-
 
 	@Override
 	public void deleteAlumno(Long id) {
@@ -79,6 +70,4 @@ public class AlumnoServiceImpl implements AlumnoService{
 		alumnoRepo.save(a2);
 		
 	}
-
-
 }

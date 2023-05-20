@@ -1,6 +1,5 @@
 package com.fleming.bancodelibros.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +48,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public List<AdminDto> getAdminsDto(){
+	public List<AdminDto> getAdminsDto() {
 		
-		List<AdminDto> respuesta = new ArrayList<>();
-		
-		for (Admin admin : getAdmins()) {
-			
-			respuesta.add(mapper.adminToDto(admin));
-		}
-		
-		return respuesta;
+		return mapper.adminsToDtos(getAdmins());
 	}
 
 
@@ -78,4 +70,10 @@ public class AdminServiceImpl implements AdminService{
 		adminRepo.save(a2);
 	}
 
+	@Override
+	public Admin getAdminByNumeroColegiado(String nColegiado) {
+		
+		
+		return adminRepo.findByNumeroColegiado(nColegiado);
+	}
 }

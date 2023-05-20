@@ -28,7 +28,7 @@ public class Libro implements Serializable{
 	private Long id;
 	
 	@Column(name="ISBN")
-	private String ISBN;
+	private String isbn;
 	@Column(name = "nombre")
 	private String nombre;
 	
@@ -47,7 +47,7 @@ public class Libro implements Serializable{
 	}
 	
 	public Libro(String ISBN, String nombre){
-		this.ISBN = ISBN;
+		this.isbn = ISBN;
 		this.nombre = nombre;
 		this.recogidas =  new HashSet<Recogida>();
 		this.depositos = new HashSet<Deposito>();
@@ -61,12 +61,12 @@ public class Libro implements Serializable{
 		this.asignatura = asignatura;
 	}
 
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
-	public void setISBN(String iSBN) {
-		this.ISBN = iSBN;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getNombre() {

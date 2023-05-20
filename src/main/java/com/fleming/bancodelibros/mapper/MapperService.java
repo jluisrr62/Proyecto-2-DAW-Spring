@@ -1,5 +1,7 @@
 package com.fleming.bancodelibros.mapper;
 
+import java.util.List;
+
 import com.fleming.bancodelibros.controller.dto.AdminDto;
 import com.fleming.bancodelibros.controller.dto.AlumnoDto;
 import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
@@ -27,4 +29,7 @@ public interface MapperService {
 	
 	LibroDto libroToDto(Libro libro);
 	Libro dtoToLibro(LibroDto libroDto);
+	
+	List<AdminDto> adminsToDtos(List<Admin> admins);
+	List<AlumnoDto> alumnosToDtos(List<Alumno> alumnos);
 }

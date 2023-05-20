@@ -11,5 +11,9 @@ public interface RecogidaService {
 	List<LocalDateTime> getFechasPorAlumnoId(Long id);
 
 	Set<Recogida> getRecogidasPorAlumnoId(Long id);
+
+	List<LocalDateTime> getFechasRecogidas(Set<Recogida> recogidas);
+
+	Set<Recogida> getRecogidasByLibroId(Long id);
 	
 }
