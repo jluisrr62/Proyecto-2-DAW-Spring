@@ -14,4 +14,5 @@ public interface AlumnoService {
 	void deleteAlumno(Long id);
 	
 	void generarAlumnos();
+	Alumno getAlumnoByDni(String dni);
 }

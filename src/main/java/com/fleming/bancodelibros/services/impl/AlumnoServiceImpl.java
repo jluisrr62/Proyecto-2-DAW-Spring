@@ -42,6 +42,12 @@ public class AlumnoServiceImpl implements AlumnoService{
 	}
 	
 	@Override
+	public Alumno getAlumnoByDni(String dni) {
+		
+		return alumnoRepo.findByDni(dni);
+	}
+	
+	@Override
 	public List<Alumno> getAlumnos() {
 		
 		return alumnoRepo.findAll();
@@ -70,4 +76,5 @@ public class AlumnoServiceImpl implements AlumnoService{
 		alumnoRepo.save(a2);
 		
 	}
+
 }

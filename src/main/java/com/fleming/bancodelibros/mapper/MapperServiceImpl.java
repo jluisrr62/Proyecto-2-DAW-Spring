@@ -14,6 +14,7 @@ import com.fleming.bancodelibros.controller.dto.AlumnoDto;
 import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
 import com.fleming.bancodelibros.controller.dto.LibroDto;
+import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
 import com.fleming.bancodelibros.modelo.Asignatura;
@@ -21,6 +22,7 @@ import com.fleming.bancodelibros.modelo.Deposito;
 import com.fleming.bancodelibros.modelo.DepositoId;
 import com.fleming.bancodelibros.modelo.Libro;
 import com.fleming.bancodelibros.modelo.Recogida;
+import com.fleming.bancodelibros.modelo.RecogidaId;
 import com.fleming.bancodelibros.services.AdminService;
 import com.fleming.bancodelibros.services.AlumnoService;
 import com.fleming.bancodelibros.services.AsignaturaService;
@@ -158,7 +160,7 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setId(asignaturaDto.getId());
 		respuesta.setNombre(asignaturaDto.getNombre());
 		respuesta.setCurso(asignaturaDto.getCurso());
-		respuesta.setLibros(asignaturaService.findLibrosByNombre(asignaturaDto.getNombresLibros()));
+		respuesta.setLibros(libroService.findLibrosByNombre(asignaturaDto.getNombresLibros()));
 		
 		return respuesta;
 	}
@@ -225,6 +227,35 @@ public class MapperServiceImpl implements MapperService{
 		return respuesta;
 	}
 	
+	@Override 
+	public RecogidaDto recogidaToDto(Recogida recogida) {
+		RecogidaDto respuesta = new RecogidaDto();
+		
+		respuesta.setDni(recogida.getAlumno().getDni());
+		respuesta.setFecha(recogida.getId().getFecha());
+		respuesta.setIsbn(recogida.getLibro().getIsbn());
+		
+		return respuesta;
+	}
+	
+	@Override
+	public Recogida dtoToRecogida(RecogidaDto recogidaDto) {
+		Recogida respuesta = new Recogida();
+		RecogidaId id = new RecogidaId();
+		Libro libro = libroService.getLibroByIsbn(recogidaDto.getIsbn());
+		Alumno alumno = alumnoService.getAlumnoByDni(recogidaDto.getDni());
+		
+		id.setAlumnoId(alumno.getId());
+		id.setFecha(recogidaDto.getFecha());
+		id.setLibroId(libro.getId());
+		
+		respuesta.setId(id);
+		respuesta.setAlumno(alumno);
+		respuesta.setLibro(libro);
+	
+		return respuesta;
+	}
+	
 	@Override
 	public List<AdminDto> adminsToDtos(List<Admin> admins) {
 		List<AdminDto> respuesta = new ArrayList<>();
@@ -245,6 +276,30 @@ public class MapperServiceImpl implements MapperService{
 		for (Alumno alumno : alumnos) {
 			
 			respuesta.add(alumnoToDto(alumno));
+		}
+		
+		return respuesta;
+	}
+
+	@Override
+	public List<LibroDto> librosToDtos(List<Libro> libros) {
+		List<LibroDto> respuesta = new ArrayList<>();
+		
+		for (Libro libro : libros) {
+			
+			respuesta.add(libroToDto(libro));
+		}
+		
+		return respuesta;
+	}
+
+	@Override
+	public List<RecogidaDto> recogidasToDtos(List<Recogida> recogidas) {
+		List<RecogidaDto> respuesta = new ArrayList<>();
+		
+		for (Recogida recogida : recogidas) {
+			
+			respuesta.add(recogidaToDto(recogida));
 		}
 		
 		return respuesta;

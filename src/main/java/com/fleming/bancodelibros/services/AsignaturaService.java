@@ -10,8 +10,6 @@ public interface AsignaturaService {
 
 	List<String> getNombresByLibros(Set<Libro> libros);
 
-	Set<Libro> findLibrosByNombre(List<String> nombresLibros);
-
 	Asignatura getAsignaturaByNombre(String asignatura);
 
 }
