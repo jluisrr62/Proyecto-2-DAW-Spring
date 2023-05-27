@@ -305,4 +305,28 @@ public class MapperServiceImpl implements MapperService{
 		return respuesta;
 	}
 
+	@Override
+	public List<AsignaturaDto> asignaturasToDtos(List<Asignatura> asignaturas) {
+		List<AsignaturaDto> respuesta = new ArrayList<>();
+		
+		for (Asignatura asignatura : asignaturas) {
+			
+			respuesta.add(asignaturaToDto(asignatura));
+		}
+		
+		return respuesta;
+	}
+
+	@Override
+	public List<DepositoDto> depositosToDtos(List<Deposito> depositos) {
+		List<DepositoDto> respuesta = new ArrayList<>();
+		
+		for (Deposito deposito : depositos) {
+			
+			respuesta.add(depositoToDto(deposito));
+		}
+		
+		return respuesta;
+	}
+
 }

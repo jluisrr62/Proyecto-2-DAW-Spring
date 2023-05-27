@@ -32,7 +32,7 @@ public class AlumnoServiceImpl implements AlumnoService{
 	@Override
 	public Alumno getAlumno(Long id) {
 		
-		return alumnoRepo.findById(id).isEmpty() ? null : alumnoRepo.findById(id).get();
+		return alumnoRepo.findById(id).isPresent() ? alumnoRepo.findById(id).get() : null;
 	}
 
 	@Override 

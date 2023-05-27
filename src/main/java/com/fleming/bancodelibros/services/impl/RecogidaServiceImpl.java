@@ -1,6 +1,7 @@
 package com.fleming.bancodelibros.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -68,25 +69,30 @@ public class RecogidaServiceImpl implements RecogidaService{
 	@Override
 	public List<LocalDateTime> getFechasPorAlumnoId(Long id) {
 		
-		return null;
+		return recogidaRepo.findIdFechaByAlumnoId(id);
 	}
 
 	@Override
 	public Set<Recogida> getRecogidasPorAlumnoId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return recogidaRepo.findByAlumnoId(id);
 	}
 
 	@Override
 	public List<LocalDateTime> getFechasRecogidas(Set<Recogida> recogidas) {
-		// TODO Auto-generated method stub
-		return null;
+		List<LocalDateTime> fechas = new ArrayList<>();
+		
+		for (Recogida recogida : recogidas) {
+			fechas.add(recogida.getId().getFecha());
+		}
+		
+		return fechas;
 	}
 
 	@Override
 	public Set<Recogida> getRecogidasByLibroId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return recogidaRepo.findByLibroId(id);
 	}
 	
 }

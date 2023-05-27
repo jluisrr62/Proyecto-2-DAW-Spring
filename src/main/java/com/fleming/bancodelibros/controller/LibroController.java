@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,55 +18,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fleming.bancodelibros.controller.dto.AlumnoDto;
-import com.fleming.bancodelibros.services.AlumnoService;
+import com.fleming.bancodelibros.controller.dto.LibroDto;
+import com.fleming.bancodelibros.services.LibroService;
 
-@RequestMapping("/alumnos")
+@RequestMapping("/libros")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class AlumnoController {
-	
+public class LibroController {
 	@Autowired
-	private AlumnoService alumnoService;
+	private LibroService depositoService;
 	
-	@PostMapping("/generar")
-	public void generarAlumnos() {
-		alumnoService.generarAlumnos();
-	}
+	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LibroDto> createLibro(@RequestBody @Validated LibroDto depositoDto) {
+		LibroDto respuesta = depositoService.createLibro(depositoDto);
+		
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+    }
 	
 	@GetMapping(path = "/mostrar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AlumnoDto>> getAlumnos() {
-		List<AlumnoDto> respuesta = alumnoService.getAlumnosDto();
+	public ResponseEntity<List<LibroDto>> getLibros() {
+		List<LibroDto> respuesta = depositoService.getLibrosDto();
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
-	}
+    }
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AlumnoDto> getAlumno(@RequestParam Long idAlumno) {
-		AlumnoDto respuesta = alumnoService.getAlumnoDto(idAlumno);
+	public ResponseEntity<LibroDto> getLibro(@RequestParam Long id) {
+		LibroDto respuesta = depositoService.getLibroDto(id);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
-	}
-		
-	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AlumnoDto> addAlumno(@RequestBody AlumnoDto alumnoDto) {
-		AlumnoDto respuesta = alumnoService.createYupdateAlumno(alumnoDto);
+    }
+	
+	@PutMapping(path = "",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LibroDto> updateLibro(@RequestBody @Validated LibroDto depositoDto) {
+		LibroDto respuesta = depositoService.updateLibro(depositoDto);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
-	}
+    }
 	
 	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteAlumno(@RequestParam Long idAlumno) {
-		alumnoService.deleteAlumno(idAlumno);
-
-	}
-	
-	@PutMapping(path = "",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AlumnoDto> updateAlumno(@RequestBody AlumnoDto alumnoDto) {
-		AlumnoDto respuesta = alumnoService.createYupdateAlumno(alumnoDto);
+	public void deleteLibro(@RequestParam Long id) {
 		
-		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+		depositoService.deleteLibro(id);		
 	}
-	
 }

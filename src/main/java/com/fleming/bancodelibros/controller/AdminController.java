@@ -37,20 +37,23 @@ public class AdminController {
 	
 	@GetMapping(path = "/mostrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AdminDto>> getAdmins() {
+		List<AdminDto> respuesta = adminService.getAdminsDto();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdminsDto());
-    }
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+	}
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdminDto> getAdmin(@RequestParam Long idAdmin) {
+		AdminDto respuesta = adminService.getAdminDto(idAdmin);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(adminService.getAdminDto(idAdmin));
-    }
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+	}
 		
-	@PostMapping
+	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdminDto> addAdmin(@RequestBody AdminDto adminDto) {
+		AdminDto respuesta = adminService.createYupdateAdmin(adminDto);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(adminService.createYupdateAdmin(adminDto));
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
 	}
 	
 	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,9 +63,10 @@ public class AdminController {
 
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(path = "",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdminDto> updateAdmin(@RequestBody AdminDto adminDto) {
-
-		return ResponseEntity.status(HttpStatus.OK).body(adminService.createYupdateAdmin(adminDto));
+		AdminDto respuesta = adminService.createYupdateAdmin(adminDto);
+		
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
 	}
 }

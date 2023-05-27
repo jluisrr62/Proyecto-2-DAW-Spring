@@ -39,4 +39,6 @@ public interface MapperService {
 	List<AlumnoDto> alumnosToDtos(List<Alumno> alumnos);
 	List<LibroDto> librosToDtos(List<Libro> libros);
 	List<RecogidaDto> recogidasToDtos(List<Recogida> recogidas);
+	List<AsignaturaDto> asignaturasToDtos(List<Asignatura> findAll);
+	List<DepositoDto> depositosToDtos(List<Deposito> findAll);
 }
