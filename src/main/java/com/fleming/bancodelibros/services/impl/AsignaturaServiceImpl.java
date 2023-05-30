@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
 import com.fleming.bancodelibros.mapper.MapperService;
@@ -12,6 +13,7 @@ import com.fleming.bancodelibros.modelo.Libro;
 import com.fleming.bancodelibros.repos.AsignaturaRepository;
 import com.fleming.bancodelibros.services.AsignaturaService;
 
+@Service
 public class AsignaturaServiceImpl implements AsignaturaService{
 
 	@Autowired
@@ -65,5 +67,4 @@ public class AsignaturaServiceImpl implements AsignaturaService{
 		
 		asignaturaRepo.deleteById(id);
 	}
-
 }

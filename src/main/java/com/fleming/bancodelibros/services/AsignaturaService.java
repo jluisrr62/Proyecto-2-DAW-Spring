@@ -22,5 +22,4 @@ public interface AsignaturaService {
 	AsignaturaDto updateAsignaturaDto(AsignaturaDto asignaturaDto);
 
 	void deleteAsignatura(Long id);
-
 }

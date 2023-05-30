@@ -6,17 +6,28 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.mapper.MapperService;
 import com.fleming.bancodelibros.modelo.Recogida;
+import com.fleming.bancodelibros.modelo.RecogidaId;
 import com.fleming.bancodelibros.repos.RecogidaRepository;
+import com.fleming.bancodelibros.services.AlumnoService;
+import com.fleming.bancodelibros.services.LibroService;
 import com.fleming.bancodelibros.services.RecogidaService;
 
+@Service
 public class RecogidaServiceImpl implements RecogidaService{
 	
 	@Autowired
 	private RecogidaRepository recogidaRepo;
+	
+	@Autowired
+	private AlumnoService alumnoService;
+	
+	@Autowired
+	private LibroService libroService;
 	
 	@Autowired
 	private MapperService mapper;
@@ -37,13 +48,18 @@ public class RecogidaServiceImpl implements RecogidaService{
 	}
 
 	@Override
-	public Recogida getRecogida(Long id) {
+	public Recogida getRecogida(RecogidaId id) {
 		
 		return recogidaRepo.findById(id).get();
 	}
 	
 	@Override
-	public RecogidaDto getRecogidaDto(Long id) {
+	public RecogidaDto getRecogidaDto(String dni, String isbn, LocalDateTime fecha) {
+		
+		RecogidaId id = new RecogidaId();
+		id.setAlumnoId(alumnoService.getAlumnoByDni(dni) == null ? null :  alumnoService.getAlumnoByDni(dni).getId());
+		id.setLibroId(libroService.getLibroByIsbn(isbn) == null ? null : libroService.getLibroByIsbn(isbn).getId());
+		id.setFecha(fecha);
 		
 		return mapper.recogidaToDto(getRecogida(id));
 	}
@@ -61,7 +77,11 @@ public class RecogidaServiceImpl implements RecogidaService{
 	}
 
 	@Override
-	public void deleteRecogida(Long id) {
+	public void deleteRecogida(String dni, String isbn, LocalDateTime fecha) {
+		RecogidaId id = new RecogidaId();
+		id.setAlumnoId(alumnoService.getAlumnoByDni(dni) == null ? null :  alumnoService.getAlumnoByDni(dni).getId());
+		id.setLibroId(libroService.getLibroByIsbn(isbn) == null ? null : libroService.getLibroByIsbn(isbn).getId());
+		id.setFecha(fecha);
 		
 		recogidaRepo.deleteById(id);
 	}

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
 import com.fleming.bancodelibros.mapper.MapperService;
@@ -17,6 +18,7 @@ import com.fleming.bancodelibros.services.AdminService;
 import com.fleming.bancodelibros.services.DepositoService;
 import com.fleming.bancodelibros.services.LibroService;
 
+@Service
 public class DepositoServiceImpl implements DepositoService{
 	
 	@Autowired

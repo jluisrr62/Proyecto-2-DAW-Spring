@@ -7,8 +7,9 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fleming.bancodelibros.modelo.Recogida;
+import com.fleming.bancodelibros.modelo.RecogidaId;
 
-public interface RecogidaRepository extends JpaRepository<Recogida, Long>{
+public interface RecogidaRepository extends JpaRepository<Recogida, RecogidaId>{
 
 	List<LocalDateTime> findIdFechaByAlumnoId(Long id);
 
