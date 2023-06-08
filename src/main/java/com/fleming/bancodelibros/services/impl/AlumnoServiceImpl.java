@@ -25,7 +25,6 @@ public class AlumnoServiceImpl implements AlumnoService{
 		
 		Alumno alumno = mapper.dtoToAlumno(alumnoDto);
 		
-		
 		return mapper.alumnoToDto(alumnoRepo.save(alumno));
 	}
 
@@ -75,6 +74,12 @@ public class AlumnoServiceImpl implements AlumnoService{
 		alumnoRepo.save(a1);
 		alumnoRepo.save(a2);
 		
+	}
+
+	@Override
+	public Alumno getByUsername(String username) {
+		
+		return alumnoRepo.findByNombreUsuario(username);
 	}
 
 }

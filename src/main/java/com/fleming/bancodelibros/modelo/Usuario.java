@@ -1,6 +1,6 @@
 package com.fleming.bancodelibros.modelo;
 
-import java.io.Serializable;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario implements Serializable{
+public abstract class Usuario implements UserDetails{
 	/**
 	 * 
 	 */
@@ -32,7 +34,7 @@ public abstract class Usuario implements Serializable{
 	private String nombre;
 	
 	@Column(name="n_usuario")
-	private String nUsuario;
+	private String nombreUsuario;
 	
 	@Column(name="contrasenia")
 	private String contrasenia;
@@ -40,7 +42,7 @@ public abstract class Usuario implements Serializable{
 	public Usuario(String dni, String n, String nUsuario, String password) {
 		this.dni = dni;
 		this.nombre = n;
-		this.nUsuario = nUsuario;
+		this.nombreUsuario = nUsuario;
 		this.contrasenia = password;
 	}
 
@@ -75,11 +77,11 @@ public abstract class Usuario implements Serializable{
 	}
 
 	public String getnUsuario() {
-		return nUsuario;
+		return nombreUsuario;
 	}
 
 	public void setnUsuario(String nUsuario) {
-		this.nUsuario = nUsuario;
+		this.nombreUsuario = nUsuario;
 	}
 
 	public String getContrasenia() {

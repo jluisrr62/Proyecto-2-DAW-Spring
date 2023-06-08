@@ -9,4 +9,6 @@ import com.fleming.bancodelibros.modelo.Alumno;
 public interface AlumnoRepository extends JpaRepository<Alumno, Long>{
 
 	Alumno findByDni(String dni);
+
+	Alumno findByNombreUsuario(String username);
 }

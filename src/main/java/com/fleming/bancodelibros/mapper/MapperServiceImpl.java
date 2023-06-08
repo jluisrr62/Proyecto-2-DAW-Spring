@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.AdminDto;
@@ -57,6 +58,9 @@ public class MapperServiceImpl implements MapperService{
 	@Lazy
 	RecogidaService recogidaService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override
 	public AdminDto adminToDto(Admin admin) {
 		
@@ -87,7 +91,7 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setDni(adminDto.getDni());
 		respuesta.setNombre(adminDto.getNombre());
 		respuesta.setnUsuario(adminDto.getnUsuario());
-		respuesta.setContrasenia(adminDto.getContrasenia());
+		respuesta.setContrasenia(passwordEncoder.encode(adminDto.getContrasenia()));
 		respuesta.setnColegiado(adminDto.getnColegiado());
 		
 		if(adminDto.getDepositos() == null || adminDto.getDepositos().isEmpty()) {
@@ -128,7 +132,7 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setDni(alumnoDto.getDni());
 		respuesta.setNombre(alumnoDto.getNombre());
 		respuesta.setnUsuario(alumnoDto.getnUsuario());
-		respuesta.setContrasenia(alumnoDto.getContrasenia());
+		respuesta.setContrasenia(passwordEncoder.encode(alumnoDto.getContrasenia()));
 		
 		if(alumnoDto.getRecogidas() == null || alumnoDto.getRecogidas().isEmpty()) {
 			respuesta.setRecogidas(new HashSet<Recogida>());

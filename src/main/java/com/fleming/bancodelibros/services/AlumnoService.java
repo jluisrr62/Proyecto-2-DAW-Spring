@@ -15,4 +15,6 @@ public interface AlumnoService {
 	
 	void generarAlumnos();
 	Alumno getAlumnoByDni(String dni);
+	
+	Alumno getByUsername(String username);
 }
