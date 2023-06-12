@@ -26,32 +26,32 @@ import com.fleming.bancodelibros.services.LibroService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class LibroController {
 	@Autowired
-	private LibroService depositoService;
+	private LibroService libroService;
 	
 	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LibroDto> createLibro(@RequestBody @Validated LibroDto depositoDto) {
-		LibroDto respuesta = depositoService.createLibro(depositoDto);
+	public ResponseEntity<LibroDto> createLibro(@RequestBody @Validated LibroDto libroDto) {
+		LibroDto respuesta = libroService.createLibro(libroDto);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 	
 	@GetMapping(path = "/mostrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<LibroDto>> getLibros() {
-		List<LibroDto> respuesta = depositoService.getLibrosDto();
+		List<LibroDto> respuesta = libroService.getLibrosDto();
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LibroDto> getLibro(@RequestParam Long id) {
-		LibroDto respuesta = depositoService.getLibroDto(id);
+		LibroDto respuesta = libroService.getLibroDto(id);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
 	
 	@PutMapping(path = "",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LibroDto> updateLibro(@RequestBody @Validated LibroDto depositoDto) {
-		LibroDto respuesta = depositoService.updateLibro(depositoDto);
+	public ResponseEntity<LibroDto> updateLibro(@RequestBody @Validated LibroDto libroDto) {
+		LibroDto respuesta = libroService.updateLibro(libroDto);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }
@@ -60,6 +60,6 @@ public class LibroController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteLibro(@RequestParam Long id) {
 		
-		depositoService.deleteLibro(id);		
+		libroService.deleteLibro(id);		
 	}
 }

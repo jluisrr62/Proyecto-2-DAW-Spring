@@ -41,8 +41,8 @@ public class AlumnoController {
 	}
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AlumnoDto> getAlumno(@RequestParam Long idAlumno) {
-		AlumnoDto respuesta = alumnoService.getAlumnoDto(idAlumno);
+	public ResponseEntity<AlumnoDto> getAlumno(@RequestParam Long id) {
+		AlumnoDto respuesta = alumnoService.getAlumnoDto(id);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
 	}
@@ -56,8 +56,8 @@ public class AlumnoController {
 	
 	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteAlumno(@RequestParam Long idAlumno) {
-		alumnoService.deleteAlumno(idAlumno);
+	public void deleteAlumno(@RequestParam Long id) {
+		alumnoService.deleteAlumno(id);
 
 	}
 	

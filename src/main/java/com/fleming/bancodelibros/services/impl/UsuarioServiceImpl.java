@@ -61,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		ResponseDTO response = new ResponseDTO();
 		if(sessionInfo.isEmpty()) {
 			sessionRegistry.registerNewSession("token de" + user.getUsername(), auth.getPrincipal());
-			response.setSessionId("token de " + user.getUsername());
+			response.setSessionId(user.getUsername());
 			System.out.println("el token de " + user.getUsername() + " es nuevo");
 		}else {
 			

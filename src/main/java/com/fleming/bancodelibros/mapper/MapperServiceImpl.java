@@ -209,7 +209,7 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setId(libro.getId());
 		respuesta.setIsbn(libro.getIsbn());
 		respuesta.setNombre(libro.getNombre());
-		respuesta.setAsignatura(libro.getAsignatura().getNombre());
+		respuesta.setAsignatura(libro.getAsignatura() == null ? null : libro.getAsignatura().getNombre());
 		respuesta.setFechasDepositos(depositoService.getFechasDepositos(libro.getDepositos()));
 		respuesta.setFechasRecogidas(recogidaService.getFechasRecogidas(libro.getRecogidas()));
 		
