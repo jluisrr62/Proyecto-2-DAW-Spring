@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fleming.bancodelibros.controller.dto.NuevaRecogidaDto;
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.mapper.MapperService;
 import com.fleming.bancodelibros.modelo.Recogida;
@@ -16,6 +17,7 @@ import com.fleming.bancodelibros.repos.RecogidaRepository;
 import com.fleming.bancodelibros.services.AlumnoService;
 import com.fleming.bancodelibros.services.LibroService;
 import com.fleming.bancodelibros.services.RecogidaService;
+import com.fleming.bancodelibros.utils.BancoDeLibrosConstants;
 
 @Service
 public class RecogidaServiceImpl implements RecogidaService{
@@ -33,9 +35,9 @@ public class RecogidaServiceImpl implements RecogidaService{
 	private MapperService mapper;
 	
 	@Override
-	public RecogidaDto createRecogida(RecogidaDto recogidaDto) {
+	public RecogidaDto createRecogida(NuevaRecogidaDto recogidaDto) {
 		
-		Recogida recogida = mapper.dtoToRecogida(recogidaDto);
+		Recogida recogida = mapper.dtoNuevoToRecogida(recogidaDto);
 		
 		return mapper.recogidaToDto(recogidaRepo.save(recogida));
 	}
@@ -113,6 +115,25 @@ public class RecogidaServiceImpl implements RecogidaService{
 	public Set<Recogida> getRecogidasByLibroId(Long id) {
 		
 		return recogidaRepo.findByLibroId(id);
+	}
+
+	
+	@Override
+	public LocalDateTime generateFechaNuevaRecogida() {
+		
+		if(recogidaRepo.findAll().size() > 0) {
+			Recogida ultimaRecogida = recogidaRepo.findAll().get(recogidaRepo.findAll().size()-1);
+			LocalDateTime ultimaFecha = ultimaRecogida.getId().getFecha();
+			LocalDateTime nuevaFecha = null;
+			
+			if(ultimaFecha.getHour() == BancoDeLibrosConstants.Horarios.CIERRE)
+				nuevaFecha = ultimaFecha.plusDays(1).withHour(BancoDeLibrosConstants.Horarios.APERTURA);
+			else 
+				nuevaFecha = ultimaFecha.plusMinutes(BancoDeLibrosConstants.Intervalos.ENTRE_RECOGIDAS);
+			
+			return nuevaFecha;
+		}
+		return LocalDateTime.now().plusDays(1).withHour(BancoDeLibrosConstants.Horarios.APERTURA);
 	}
 	
 }

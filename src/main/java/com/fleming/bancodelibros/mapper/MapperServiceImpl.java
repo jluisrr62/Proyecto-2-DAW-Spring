@@ -15,6 +15,7 @@ import com.fleming.bancodelibros.controller.dto.AlumnoDto;
 import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
 import com.fleming.bancodelibros.controller.dto.LibroDto;
+import com.fleming.bancodelibros.controller.dto.NuevaRecogidaDto;
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
@@ -261,6 +262,25 @@ public class MapperServiceImpl implements MapperService{
 	}
 	
 	@Override
+	public Recogida dtoNuevoToRecogida(NuevaRecogidaDto recogidaDto) {
+		Recogida respuesta = new Recogida();
+		RecogidaId id = new RecogidaId();
+		Libro libro = libroService.getLibro(recogidaDto.getIdLibro());
+		Alumno alumno = alumnoService.getByUsername(recogidaDto.getNombreUsuario());
+		
+		id.setAlumnoId(alumno.getId());
+		id.setFecha(recogidaService.generateFechaNuevaRecogida());
+		id.setLibroId(libro.getId());
+		
+		respuesta.setId(id);
+		respuesta.setAlumno(alumno);
+		respuesta.setLibro(libro);
+	
+		return respuesta;
+	}
+
+	
+	@Override
 	public List<AdminDto> adminsToDtos(List<Admin> admins) {
 		List<AdminDto> respuesta = new ArrayList<>();
 		
@@ -332,5 +352,6 @@ public class MapperServiceImpl implements MapperService{
 		
 		return respuesta;
 	}
+
 
 }

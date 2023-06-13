@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fleming.bancodelibros.controller.dto.NuevaRecogidaDto;
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.services.RecogidaService;
 
@@ -30,7 +31,7 @@ public class RecogidaController {
 	private RecogidaService recogidaService;
 	
 	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RecogidaDto> createRecogida(@RequestBody @Validated RecogidaDto recogidaDto) {
+	public ResponseEntity<RecogidaDto> createRecogida(@RequestBody @Validated NuevaRecogidaDto recogidaDto) {
 		RecogidaDto respuesta = recogidaService.createRecogida(recogidaDto);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
