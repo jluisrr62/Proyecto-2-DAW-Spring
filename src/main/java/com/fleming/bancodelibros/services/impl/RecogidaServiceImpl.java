@@ -135,5 +135,13 @@ public class RecogidaServiceImpl implements RecogidaService{
 		}
 		return LocalDateTime.now().plusDays(1).withHour(BancoDeLibrosConstants.Horarios.APERTURA);
 	}
+
+	@Override
+	public List<RecogidaDto> getRecogidasDtoByUsername(String username) {
+		
+		List<Recogida> recogidas = recogidaRepo.getByUsername(username);
+		
+		return mapper.recogidasToDtos(recogidas);
+	}
 	
 }

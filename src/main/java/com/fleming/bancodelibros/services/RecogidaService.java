@@ -26,4 +26,5 @@ public interface RecogidaService {
 	List<RecogidaDto> getRecogidasDto();
 	Set<Recogida> getRecogidasByLibroId(Long id);
 	LocalDateTime generateFechaNuevaRecogida();
+	List<RecogidaDto> getRecogidasDtoByUsername(String username);
 }

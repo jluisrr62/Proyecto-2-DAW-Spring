@@ -1,9 +1,11 @@
 package com.fleming.bancodelibros.controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,8 @@ public class RecogidaController {
     }
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RecogidaDto> getRecogida(@RequestParam String dni, @RequestParam String isbn, @RequestParam LocalDateTime fecha) {
+	public ResponseEntity<RecogidaDto> getRecogida(@RequestParam String dni, @RequestParam String isbn, @RequestParam @DateTimeFormat(pattern = "YYYY-MM-dd HH:mm:ss.SSS") LocalDateTime fecha) {
+
 		RecogidaDto respuesta = recogidaService.getRecogidaDto(dni,isbn,fecha);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -60,8 +63,20 @@ public class RecogidaController {
 	
 	@DeleteMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteRecogida(@RequestParam String dni, @RequestParam String isbn, @RequestParam LocalDateTime fecha) {
+	public void deleteRecogida(@RequestParam String dni, @RequestParam String isbn, @RequestParam String fecha) {
 		
-		recogidaService.deleteRecogida(dni,isbn,fecha);		
+		 DateTimeFormatter dateTimeFormat = 
+		            DateTimeFormatter.ISO_DATE_TIME;
+		 
+		 LocalDateTime fechaFinal = dateTimeFormat.parse(fecha, LocalDateTime::from);
+		
+		recogidaService.deleteRecogida(dni,isbn,fechaFinal);		
 	}
+	
+	@GetMapping(path = "/ByUsername", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<RecogidaDto>> getRecogidaByUsername(@RequestParam String username) {
+		List<RecogidaDto> respuesta = recogidaService.getRecogidasDtoByUsername(username);
+		
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+    }
 }

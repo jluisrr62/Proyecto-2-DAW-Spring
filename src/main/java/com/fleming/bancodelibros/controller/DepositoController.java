@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
+import com.fleming.bancodelibros.controller.dto.NuevoDepositoDto;
 import com.fleming.bancodelibros.services.DepositoService;
 
 @RequestMapping("/depositos")
@@ -30,7 +31,7 @@ public class DepositoController {
 	private DepositoService depositoService;
 	
 	@PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DepositoDto> createDeposito(@RequestBody @Validated DepositoDto depositoDto) {
+	public ResponseEntity<DepositoDto> createDeposito(@RequestBody @Validated NuevoDepositoDto depositoDto) {
 		DepositoDto respuesta = depositoService.createDepositoDto(depositoDto);
 		
 		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);

@@ -15,4 +15,5 @@ public interface AdminService {
 	AdminDto getAdminDto(Long id);
 	List<AdminDto> getAdminsDto();
 	Admin getAdminByNumeroColegiado(String getnColegiado);
+	Admin getByUserName(String username);
 }

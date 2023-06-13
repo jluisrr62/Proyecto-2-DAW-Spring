@@ -23,8 +23,7 @@ public class Alumno extends Usuario{
 	 * 
 	 */
 	private static final long serialVersionUID = -1300591480605657050L;
-	@OneToMany(mappedBy="alumno", fetch = FetchType.LAZY)
-	private Set<Recogida> recogidas;
+
 
 	public Alumno() {
 	}
@@ -32,17 +31,6 @@ public class Alumno extends Usuario{
 	public Alumno(String dni, String nombre, String nUsuario, String contrasenia) {
 		super(dni, nombre, nUsuario, contrasenia);
 		// TODO Auto-generated constructor stub
-		this.recogidas =  new HashSet<Recogida>();
-	}
-
-	@JsonIgnore
-	public Set<Recogida> getRecogidas() {
-		return recogidas;
-	}
-
-	@JsonIgnore
-	public void setRecogidas(Set<Recogida> recogidas) {
-		this.recogidas = recogidas;
 	}
 
 

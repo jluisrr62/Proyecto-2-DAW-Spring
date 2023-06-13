@@ -28,8 +28,6 @@ public class Admin extends Usuario{
 	@Column(name="n_colegiado")
 	private String numeroColegiado;
 	
-	@OneToMany(mappedBy="admin", fetch = FetchType.LAZY)
-	private Set<Deposito> depositos;
 	
 	public Admin() {
 		
@@ -39,7 +37,6 @@ public class Admin extends Usuario{
 		super(dni, nombre, nUsuario, contrasenia);
 		// TODO Auto-generated constructor stub
 		this.numeroColegiado = nColegiado;
-		this.depositos = new HashSet<Deposito>();
 	}
 
 	
@@ -50,14 +47,6 @@ public class Admin extends Usuario{
 
 	public void setnColegiado(String nColegiado) {
 		this.numeroColegiado = nColegiado;
-	}
-
-	public Set<Deposito> getDepositos() {
-		return depositos;
-	}
-
-	public void setDepositos(Set<Deposito> depositos) {
-		this.depositos = depositos;
 	}
 
 	@Override

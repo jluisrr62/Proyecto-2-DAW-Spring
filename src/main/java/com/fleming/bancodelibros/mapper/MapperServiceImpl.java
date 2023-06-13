@@ -16,6 +16,7 @@ import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
 import com.fleming.bancodelibros.controller.dto.LibroDto;
 import com.fleming.bancodelibros.controller.dto.NuevaRecogidaDto;
+import com.fleming.bancodelibros.controller.dto.NuevoDepositoDto;
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
@@ -74,12 +75,6 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setContrasenia(admin.getContrasenia());
 		respuesta.setnColegiado(admin.getnColegiado());
 		
-		if(admin.getDepositos() == null || admin.getDepositos().isEmpty()) {
-			respuesta.setDepositos(new ArrayList<LocalDateTime>());
-		}else {
-			respuesta.setDepositos(depositoService.getFechasPorAdminId(admin.getId()));
-		}
-		
 		return respuesta;
 	}
 
@@ -95,12 +90,6 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setContrasenia(passwordEncoder.encode(adminDto.getContrasenia()));
 		respuesta.setnColegiado(adminDto.getnColegiado());
 		
-		if(adminDto.getDepositos() == null || adminDto.getDepositos().isEmpty()) {
-			respuesta.setDepositos(new HashSet<Deposito>());
-		}else {
-			respuesta.setDepositos(depositoService.getDepositosPorAdminId(adminDto.getId()));
-		}
-		
 		return respuesta;
 	}
 
@@ -115,12 +104,6 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setnUsuario(alumno.getnUsuario());
 		respuesta.setContrasenia(alumno.getContrasenia());
 		
-		if(alumno.getRecogidas() == null || alumno.getRecogidas().isEmpty()) {
-			respuesta.setRecogidas(new ArrayList<LocalDateTime>());
-		}else {
-			respuesta.setRecogidas(recogidaService.getFechasPorAlumnoId(alumno.getId()));
-		}
-		
 		return respuesta;
 	}
 
@@ -134,12 +117,6 @@ public class MapperServiceImpl implements MapperService{
 		respuesta.setNombre(alumnoDto.getNombre());
 		respuesta.setnUsuario(alumnoDto.getnUsuario());
 		respuesta.setContrasenia(passwordEncoder.encode(alumnoDto.getContrasenia()));
-		
-		if(alumnoDto.getRecogidas() == null || alumnoDto.getRecogidas().isEmpty()) {
-			respuesta.setRecogidas(new HashSet<Recogida>());
-		}else {
-			respuesta.setRecogidas(recogidaService.getRecogidasPorAlumnoId(alumnoDto.getId()));
-		}
 		
 		return respuesta;
 	}
@@ -279,6 +256,23 @@ public class MapperServiceImpl implements MapperService{
 		return respuesta;
 	}
 
+	@Override 
+	public Deposito dtoNuevoToDeposito(NuevoDepositoDto depositoDto) {
+		Deposito respuesta = new Deposito();
+		DepositoId id = new DepositoId();
+		Libro libro = libroService.getLibro(depositoDto.getIdLibro());
+		Admin admin = adminService.getByUserName(depositoDto.getNombreUsuario());
+		
+		id.setAdminId(admin.getId());
+		id.setFecha(LocalDateTime.now());
+		id.setLibroId(libro.getId());
+		
+		respuesta.setId(id);
+		respuesta.setAdmin(admin);
+		respuesta.setLibro(libro);
+	
+		return respuesta;
+	}
 	
 	@Override
 	public List<AdminDto> adminsToDtos(List<Admin> admins) {

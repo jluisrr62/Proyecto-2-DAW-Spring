@@ -8,6 +8,7 @@ import com.fleming.bancodelibros.controller.dto.AsignaturaDto;
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
 import com.fleming.bancodelibros.controller.dto.LibroDto;
 import com.fleming.bancodelibros.controller.dto.NuevaRecogidaDto;
+import com.fleming.bancodelibros.controller.dto.NuevoDepositoDto;
 import com.fleming.bancodelibros.controller.dto.RecogidaDto;
 import com.fleming.bancodelibros.modelo.Admin;
 import com.fleming.bancodelibros.modelo.Alumno;
@@ -43,4 +44,5 @@ public interface MapperService {
 	List<AsignaturaDto> asignaturasToDtos(List<Asignatura> findAll);
 	List<DepositoDto> depositosToDtos(List<Deposito> findAll);
 	Recogida dtoNuevoToRecogida(NuevaRecogidaDto recogidaDto);
+	Deposito dtoNuevoToDeposito(NuevoDepositoDto depositoDto);
 }

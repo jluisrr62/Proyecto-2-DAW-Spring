@@ -69,6 +69,12 @@ public class AdminServiceImpl implements AdminService{
 		adminRepo.save(a1);
 		adminRepo.save(a2);
 	}
+	
+	@Override
+	public Admin getByUserName(String username) {
+		
+		return adminRepo.findByNombreUsuario(username);
+	}
 
 	@Override
 	public Admin getAdminByNumeroColegiado(String nColegiado) {

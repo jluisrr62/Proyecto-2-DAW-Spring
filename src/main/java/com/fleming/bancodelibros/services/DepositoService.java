@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
+import com.fleming.bancodelibros.controller.dto.NuevoDepositoDto;
 import com.fleming.bancodelibros.modelo.Deposito;
 
 public interface DepositoService {
@@ -13,10 +14,9 @@ public interface DepositoService {
 	List<LocalDateTime> getFechasPorAdminId(Long adminID);
 	List<LocalDateTime> getFechasDepositos(Set<Deposito> depositos);
 	Set<Deposito> getDepositosByLibroId(Long id);
-	DepositoDto createDepositoDto(DepositoDto depositoDto);
+	DepositoDto createDepositoDto(NuevoDepositoDto depositoDto);
 	List<DepositoDto> getDepositosDto();
 	DepositoDto getDepositoDto(String nColegiado, String isbn, LocalDateTime fecha);
 	DepositoDto updateDepositoDto(DepositoDto depositoDto);
 	void deleteDeposito(String nColegiado, String isbn, LocalDateTime fecha);
-	
 }	

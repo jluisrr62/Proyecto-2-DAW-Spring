@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.fleming.bancodelibros.controller.dto.DepositoDto;
+import com.fleming.bancodelibros.controller.dto.NuevoDepositoDto;
 import com.fleming.bancodelibros.mapper.MapperService;
 import com.fleming.bancodelibros.modelo.Deposito;
 import com.fleming.bancodelibros.modelo.DepositoId;
@@ -65,8 +66,8 @@ public class DepositoServiceImpl implements DepositoService{
 	}
 
 	@Override
-	public DepositoDto createDepositoDto(DepositoDto depositoDto) {
-		Deposito deposito = mapperService.dtoToDeposito(depositoDto);
+	public DepositoDto createDepositoDto(NuevoDepositoDto depositoDto) {
+		Deposito deposito = mapperService.dtoNuevoToDeposito(depositoDto);
 		Deposito creada = depositoRepo.save(deposito);
 		
 		return mapperService.depositoToDto(creada);
@@ -105,5 +106,4 @@ public class DepositoServiceImpl implements DepositoService{
 		
 		depositoRepo.deleteById(id);
 	}
-
 }
