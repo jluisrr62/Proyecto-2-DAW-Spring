@@ -19,4 +19,5 @@ public interface DepositoService {
 	DepositoDto getDepositoDto(String nColegiado, String isbn, LocalDateTime fecha);
 	DepositoDto updateDepositoDto(DepositoDto depositoDto);
 	void deleteDeposito(String nColegiado, String isbn, LocalDateTime fecha);
+	List<DepositoDto> getDepositosDtoByUsername(String username);
 }	

@@ -106,4 +106,11 @@ public class DepositoServiceImpl implements DepositoService{
 		
 		depositoRepo.deleteById(id);
 	}
+
+	@Override
+	public List<DepositoDto> getDepositosDtoByUsername(String username) {
+		List<Deposito> depositos = depositoRepo.getByUsername(username);
+		
+		return mapperService.depositosToDtos(depositos);
+	}
 }

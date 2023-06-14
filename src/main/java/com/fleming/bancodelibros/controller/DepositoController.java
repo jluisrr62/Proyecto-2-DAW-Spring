@@ -64,4 +64,11 @@ public class DepositoController {
 		
 		depositoService.deleteDeposito(nColegiado,isbn,fecha);		
 	}
+	
+	@GetMapping(path = "/ByUsername", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DepositoDto>> getRecogidaByUsername(@RequestParam String username) {
+		List<DepositoDto> respuesta = depositoService.getDepositosDtoByUsername(username);
+		
+		return respuesta == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) : ResponseEntity.status(HttpStatus.OK).body(respuesta);
+    }
 }
