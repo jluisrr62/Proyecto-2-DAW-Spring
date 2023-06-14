@@ -1,30 +1,28 @@
 package com.fleming.bancodelibros.modelo;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="alumnos")
 public class Alumno extends Usuario{
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1300591480605657050L;
 
+	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "alumno")
+	private List<Recogida> recogidas;
 
+	
 	public Alumno() {
 	}
 	
